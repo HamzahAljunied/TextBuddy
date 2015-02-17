@@ -171,3 +171,7 @@ void Texter::clearTextFile(char* argv[]){
 
 	cout << contentCleared << argv[1] << endl;
 }
+
+void Texter::sortTextLines(void){
+
+}
