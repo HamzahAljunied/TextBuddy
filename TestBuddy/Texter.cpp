@@ -4,6 +4,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -45,9 +46,11 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 			cout << errorAddLine;
 		}
 	}
+
 	if(userCommand == displayCommand){
 		displayFileContents(argv);
 	}
+
 	if (userCommand == clearCommand){
 		clearTextFile(argv);
 	}
@@ -57,7 +60,7 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 			int lineNumber;
 			istringstream(information) >> lineNumber;
 
-			if (isWithinNumLineRange(lineNumber){
+			if (isWithinNumLineRange(lineNumber)){
 				deleteLine(lineNumber, argv);
 			}
 			else{
@@ -67,6 +70,10 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 		else{
 			cout << errorDeleteLine;
 		}
+	}
+
+	if (userCommand == sortCommand){
+
 	}
 }
 
@@ -182,12 +189,16 @@ void Texter::clearTextFile(char* argv[]){
 	cout << contentCleared << argv[1] << endl;
 }
 
-void Texter::sortTextLines(void){
+//lines are sorted whereby special characters are ignored and is sorted purely alphabetically
+void Texter::sortLinesAlphabetically(void){
 
 }
 
 vector<string> Texter::searchLines(string){
 
+	vector<string> textFileLines;
+
+	return textFileLines;
 }
 
 void Texter::displaySearchLineResults(vector<string>){

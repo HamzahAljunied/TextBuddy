@@ -36,12 +36,13 @@ private:
 	const string deleteCommand = "delete";
 	const string displayCommand = "display";
 	const string clearCommand = "clear";
+	const string sortCommand = "sort";
 
 	void addLine(string, char*[]);
 	void displayFileContents(char*[]);
 	void deleteLine(int, char*[]);
 	void clearTextFile(char*[]);
-	void sortTextLines(void);
+	void sortLinesAlphabetically(void);
 	bool isInformationValid(string);
 	bool is_number(const string&);
 	bool isWithinNumLineRange(int);
