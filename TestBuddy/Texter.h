@@ -39,6 +39,8 @@ private:
 	void sortTextLines(void);
 	bool isInformationValid(string);
 	bool is_number(const string&);
+	vector<string> searchLines(string);
+	void displaySearchLineResults(vector<string>);
 };
 
 #endif // !TEXTER_H

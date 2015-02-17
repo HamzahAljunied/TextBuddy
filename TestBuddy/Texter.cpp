@@ -175,3 +175,11 @@ void Texter::clearTextFile(char* argv[]){
 void Texter::sortTextLines(void){
 
 }
+
+vector<string> Texter::searchLines(string){
+
+}
+
+void Texter::displaySearchLineResults(vector<string>){
+
+}
