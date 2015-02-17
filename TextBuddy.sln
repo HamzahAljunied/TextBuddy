@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextBuddy", "TestBuddy\TestBuddy.vcxproj", "{44B1F715-1109-40ED-B961-12A90698BC63}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextBuddyTest", "TextBuddyTest\TextBuddyTest.vcxproj", "{F50DCA6F-9C10-4B7D-9CD0-77612159602C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{44B1F715-1109-40ED-B961-12A90698BC63} = {44B1F715-1109-40ED-B961-12A90698BC63}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,11 +7,11 @@
 
 using namespace std;
 
-Texter::Texter(void){
+Texter::Texter(){
 	_totalNumOfLines = 0;
 }
 
-Texter::~Texter(void){
+Texter::~Texter(){
 	cout<<"Texter deleted\n";
 }
 

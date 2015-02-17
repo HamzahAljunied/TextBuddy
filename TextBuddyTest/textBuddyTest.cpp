@@ -9,7 +9,12 @@ namespace TextBuddyTest
 
 	public:
 		TEST_METHOD(texterConstructorTest){
-			// TODO: Your test code here
+			Texter testClass;
+
+			int expectedNumOfLines = 0;
+			int constructorNum = testClass.getTotalNumberOfLines();
+
+			Assert::AreEqual(expectedNumOfLines, constructorNum);
 		}
 
 	};

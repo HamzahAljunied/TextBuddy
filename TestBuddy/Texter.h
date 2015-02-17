@@ -8,18 +8,20 @@
 #include <iostream>
 using namespace std;
 
-
 class Texter
 {
 public:
-	Texter(void);
-	~Texter(void);
+	Texter();
+	~Texter();
 
 	void commandTexter(string, string, char* []);
 
-	int getTotalNumberOfLines(){
+#ifdef TESTMODE
+	int getTotalNumberOfLines(void){
 		return _totalNumOfLines;
 	}
+
+#endif
 	
 private:
 	int _totalNumOfLines;
