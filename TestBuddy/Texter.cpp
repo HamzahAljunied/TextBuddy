@@ -185,6 +185,7 @@ void Texter::deleteLine(int deletingLineNumber){
 
 }
 
+//clear the text file of all contents
 void Texter::clearTextFile(){
 	ofstream textFile;
 	textFile.open(_textFileInUse, ofstream::out | ofstream::trunc);
@@ -196,15 +197,23 @@ void Texter::clearTextFile(){
 //lines are sorted whereby special characters are ignored and is sorted purely alphabetically
 void Texter::sortLinesAlphabetically(void){
 	ifstream textFile(_textFileInUse);
+
 	SEARCH_STRUCT textFileLine;
+	SEARCH_STRUCT compressedLine;
+
 	vector<SEARCH_STRUCT> originalTextFileVec; //used to store the lines in the text file and would not be editted
-	vector<SEARCH_STRUCT> edittedTextFileVec; //used to store the lines after compressing it from all special characters
+	vector<SEARCH_STRUCT> edittedTextFileVec; //used to store the lines after compressing it from all special characters and bringing it all tolower case
+
 	int numLine = 1;
 
 	if (textFile.is_open()){
 		while (getline(textFile, textFileLine.textLine)){
 			textFileLine.lineNum = numLine;
 			originalTextFileVec.push_back(textFileLine);
+
+			compressedLine.textLine = compressTextLine(textFileLine.textLine);
+			compressedLine.lineNum = numLine;
+			edittedTextFileVec.push_back(compressedLine);
 		}
 	}
 }
@@ -221,7 +230,18 @@ void Texter::displaySearchLineResults(vector<string>){
 }
 
 string Texter::compressTextLine(string textLine){
-	string compressedLine;
 
-	return compressedLine;
+	for (int i = 0; i < textLine.size(); i++){
+		if (!isalpha(textLine[i])){
+			textLine.erase(i, 1);
+			i--;
+		}
+		else{
+			if (isupper(textLine[i])){
+				textLine[i] = tolower(textLine[i]);
+			}
+		}
+	}
+
+	return textLine; //textLine after being compressed
 }

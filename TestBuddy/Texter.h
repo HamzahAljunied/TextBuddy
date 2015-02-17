@@ -21,12 +21,19 @@ public:
 
 	void commandTexter(string, string, string);
 
-#ifdef TESTMODE
+
 	int getTotalNumberOfLines(void){
 		return _totalNumOfLines;
 	}
 
-#endif
+	string compressLineTest(){
+		Texter testClass;
+
+		string actualOutput = testClass.compressTextLine("Test*STRING?!@");
+
+		return actualOutput;
+	}
+
 	
 private:
 	int _totalNumOfLines;

@@ -17,5 +17,14 @@ namespace TextBuddyTest
 			Assert::AreEqual(expectedNumOfLines, constructorNum);
 		}
 
+		TEST_METHOD(texterCompressLineTest){
+			Texter testClass;
+
+			const string expectedStringOutput = "teststring";
+			const string actualStringOutput = testClass.compressLineTest();
+
+			Assert::AreEqual(expectedStringOutput, actualStringOutput);
+		}
+
 	};
 }
