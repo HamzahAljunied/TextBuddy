@@ -14,7 +14,12 @@ public:
 	Texter();
 	~Texter();
 
-	void commandTexter(string, string, char* []);
+	struct searchStruct{
+		string textLine;
+		int lineNum;
+	};
+
+	void commandTexter(string, string, string);
 
 #ifdef TESTMODE
 	int getTotalNumberOfLines(void){
@@ -25,6 +30,7 @@ public:
 	
 private:
 	int _totalNumOfLines;
+	string _textFileInUse;
 
 	const string errorDeleteLine = "Error: Line number is beyond the text document's parameter\n";
 	const string errorOpeningFile = "Error opening file\n";
@@ -39,11 +45,11 @@ private:
 	const string sortCommand = "sort";
 	const string searchCommand = "search";
 
-	void addLine(string, char*[]);
-	void displayFileContents(char*[]);
-	void deleteLine(int, char*[]);
-	void clearTextFile(char*[]);
-	void sortLinesAlphabetically(void);
+	void addLine(string);
+	void displayFileContents();
+	void deleteLine(int);
+	void clearTextFile();
+	void sortLinesAlphabetically();
 	bool isInformationValid(string);
 	bool is_number(const string&);
 	bool isWithinNumLineRange(int);

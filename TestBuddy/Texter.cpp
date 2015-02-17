@@ -33,14 +33,14 @@ bool Texter::is_number(const string& s)
 	return !s.empty() && it == s.end();
 }
 
-void Texter::commandTexter(string userCommand, string information, char* argv[]){
+void Texter::commandTexter(string userCommand, string information, string fileInUse){
 	
 	information.erase(information.begin());
 
 
 	if(userCommand == addCommand){
 		if (isInformationValid(information)){
-			addLine(information, argv);
+			addLine(information);
 		}
 		else{
 			cout << errorAddLine;
@@ -48,11 +48,11 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 	}
 
 	if(userCommand == displayCommand){
-		displayFileContents(argv);
+		displayFileContents();
 	}
 
 	if (userCommand == clearCommand){
-		clearTextFile(argv);
+		clearTextFile();
 	}
 
 	if (userCommand == deleteCommand){
@@ -61,7 +61,7 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 			istringstream(information) >> lineNumber;
 
 			if (isWithinNumLineRange(lineNumber)){
-				deleteLine(lineNumber, argv);
+				deleteLine(lineNumber);
 			}
 			else{
 				cout << errorDeleteLine;
@@ -91,10 +91,10 @@ bool Texter::isWithinNumLineRange(int deleteNumLine){
 	return isWithinRange;
 }
 
-void Texter::addLine(string newLine, char* argv[]){
+void Texter::addLine(string newLine){
 	vector<string> tempV;
 	string textFileLine;
-	ifstream textFile (argv[1]);
+	ifstream textFile (_textFileInUse);
 
 	if(textFile.is_open()){
 		while(getline(textFile, textFileLine)){
@@ -102,7 +102,7 @@ void Texter::addLine(string newLine, char* argv[]){
 		}
 
 		tempV.push_back(newLine);
-		cout<<newLine<<" was added to "<<argv[1]<<endl;
+		cout<<newLine<<" was added to "<<_textFileInUse<<endl;
 		textFile.trunc;
 		textFile.close();
 
@@ -113,7 +113,7 @@ void Texter::addLine(string newLine, char* argv[]){
 	}
 
 	ofstream newTextFile;
-	newTextFile.open(argv[1]);
+	newTextFile.open(_textFileInUse);
 	for(vector<string>::iterator iter=tempV.begin(); iter!=tempV.end(); iter++){
 		newTextFile << *iter <<endl;
 	}
@@ -123,14 +123,14 @@ void Texter::addLine(string newLine, char* argv[]){
 	textFile.close();
 }
 
-void Texter::displayFileContents(char* argv[]){
+void Texter::displayFileContents(){
 
 	if (_totalNumOfLines == 0){
-		cout << argv[1] << fileEmpty;
+		cout << _textFileInUse << fileEmpty;
 	}
 	else{
 		string line;
-		ifstream textFile(argv[1]);
+		ifstream textFile(_textFileInUse);
 		int i = 1;
 
 		if (textFile.is_open()){
@@ -147,12 +147,12 @@ void Texter::displayFileContents(char* argv[]){
 	}
 }
 
-void Texter::deleteLine(int deletingLineNumber, char* argv[]){
+void Texter::deleteLine(int deletingLineNumber){
 	string textFileLine;
 	string deletingLine;
 	int i = 1;
 	vector<string> tempV;
-	ifstream textFile (argv[1]);
+	ifstream textFile (_textFileInUse);
 
 	if(textFile.is_open()){
 		while (getline(textFile, textFileLine)){
@@ -172,30 +172,38 @@ void Texter::deleteLine(int deletingLineNumber, char* argv[]){
 
 	
 	ofstream newTextFile;
-	newTextFile.open(argv[1]);
+	newTextFile.open(_textFileInUse);
 
 	for (vector<string>::iterator iter = tempV.begin(); iter != tempV.end(); iter++){
 		newTextFile << *iter << endl;
 	}
 	
-	cout << "deleted from my " << argv[1] << ": " << deletingLine << endl;
+	cout << "deleted from my " << _textFileInUse << ": " << deletingLine << endl;
 	_totalNumOfLines--;
 
 	tempV.erase(tempV.begin(), tempV.end());	
 
 }
 
-void Texter::clearTextFile(char* argv[]){
+void Texter::clearTextFile(){
 	ofstream textFile;
-	textFile.open(argv[1], ofstream::out | ofstream::trunc);
+	textFile.open(_textFileInUse, ofstream::out | ofstream::trunc);
 	textFile.close();
 
-	cout << contentCleared << argv[1] << endl;
+	cout << contentCleared << _textFileInUse << endl;
 }
 
 //lines are sorted whereby special characters are ignored and is sorted purely alphabetically
 void Texter::sortLinesAlphabetically(void){
+	ifstream textFile(_textFileInUse);
+	string textFileLine;
+	vector<string> textFileVector;
 
+	if (textFile.is_open()){
+		while (getline(textFile, textFileLine)){
+			textFileVector.push_back(textFileLine);
+		}
+	}
 }
 
 vector<string> Texter::searchLines(string){
