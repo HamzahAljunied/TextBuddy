@@ -37,7 +37,7 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 	information.erase(information.begin());
 
 
-	if(userCommand == "add"){
+	if(userCommand == addCommand){
 		if (isInformationValid(information)){
 			addLine(information, argv);
 		}
@@ -45,19 +45,19 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 			cout << errorAddLine;
 		}
 	}
-	if(userCommand == "display"){
+	if(userCommand == displayCommand){
 		displayFileContents(argv);
 	}
-	if (userCommand == "clear"){
+	if (userCommand == clearCommand){
 		clearTextFile(argv);
 	}
 
-	if (userCommand == "delete"){
+	if (userCommand == deleteCommand){
 		if (is_number(information)){
 			int lineNumber;
 			istringstream(information) >> lineNumber;
 
-			if ((lineNumber <= _totalNumOfLines) && (lineNumber > 0)){
+			if (isWithinNumLineRange(lineNumber){
 				deleteLine(lineNumber, argv);
 			}
 			else{
@@ -68,6 +68,16 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 			cout << errorDeleteLine;
 		}
 	}
+}
+
+bool Texter::isWithinNumLineRange(int deleteNumLine){
+	bool isWithinRange = false;
+
+	if ((deleteNumLine <= _totalNumOfLines) && (deleteNumLine > 0)){
+		isWithinRange = true;
+	}
+
+	return isWithinRange;
 }
 
 void Texter::addLine(string newLine, char* argv[]){
