@@ -16,6 +16,10 @@ public:
 	~Texter(void);
 
 	void commandTexter(string, string, char* []);
+
+	int getTotalNumberOfLines(){
+		return _totalNumOfLines;
+	}
 	
 private:
 	int _totalNumOfLines;

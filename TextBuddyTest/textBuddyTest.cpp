@@ -5,12 +5,10 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace TextBuddyTest
 {		
-	TEST_CLASS(UnitTest1)
-	{
+	TEST_CLASS(texterTest){
+
 	public:
-		
-		TEST_METHOD(TestMethod1)
-		{
+		TEST_METHOD(texterConstructorTest){
 			// TODO: Your test code here
 		}
 
