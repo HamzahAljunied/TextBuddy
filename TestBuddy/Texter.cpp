@@ -73,7 +73,11 @@ void Texter::commandTexter(string userCommand, string information, char* argv[])
 	}
 
 	if (userCommand == sortCommand){
+		sortLinesAlphabetically();
+	}
 
+	if (userCommand == searchCommand){
+		searchLines(information);
 	}
 }
 

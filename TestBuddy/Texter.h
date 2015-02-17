@@ -37,6 +37,7 @@ private:
 	const string displayCommand = "display";
 	const string clearCommand = "clear";
 	const string sortCommand = "sort";
+	const string searchCommand = "search";
 
 	void addLine(string, char*[]);
 	void displayFileContents(char*[]);
