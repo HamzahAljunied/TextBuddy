@@ -14,7 +14,7 @@ public:
 	Texter();
 	~Texter();
 
-	struct searchStruct{
+	struct SEARCH_STRUCT{
 		string textLine;
 		int lineNum;
 	};
@@ -50,10 +50,12 @@ private:
 	void deleteLine(int);
 	void clearTextFile();
 	void sortLinesAlphabetically();
+	vector<string> searchLines(string);
+
 	bool isInformationValid(string);
+	string compressTextLine(string);
 	bool is_number(const string&);
 	bool isWithinNumLineRange(int);
-	vector<string> searchLines(string);
 	void displaySearchLineResults(vector<string>);
 };
 

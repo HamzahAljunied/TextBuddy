@@ -196,12 +196,15 @@ void Texter::clearTextFile(){
 //lines are sorted whereby special characters are ignored and is sorted purely alphabetically
 void Texter::sortLinesAlphabetically(void){
 	ifstream textFile(_textFileInUse);
-	string textFileLine;
-	vector<string> textFileVector;
+	SEARCH_STRUCT textFileLine;
+	vector<SEARCH_STRUCT> originalTextFileVec; //used to store the lines in the text file and would not be editted
+	vector<SEARCH_STRUCT> edittedTextFileVec; //used to store the lines after compressing it from all special characters
+	int numLine = 1;
 
 	if (textFile.is_open()){
-		while (getline(textFile, textFileLine)){
-			textFileVector.push_back(textFileLine);
+		while (getline(textFile, textFileLine.textLine)){
+			textFileLine.lineNum = numLine;
+			originalTextFileVec.push_back(textFileLine);
 		}
 	}
 }
@@ -215,4 +218,10 @@ vector<string> Texter::searchLines(string){
 
 void Texter::displaySearchLineResults(vector<string>){
 
+}
+
+string Texter::compressTextLine(string textLine){
+	string compressedLine;
+
+	return compressedLine;
 }
