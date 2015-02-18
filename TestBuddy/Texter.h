@@ -53,7 +53,7 @@ private:
 	void deleteLine(int);
 	void clearTextFile();
 	void sortLinesAlphabetically();
-	vector<string> searchLines(string);
+	void searchLines(string);
 
 	bool isInformationValid(string);
 	string compressTextLine(string);
@@ -61,6 +61,8 @@ private:
 	bool isWithinNumLineRange(int);
 	void displaySearchLineResults(vector<string>);
 	void readIntoFile(vector<string>&);
+	int numOfLinesInFile();
+	vector<string> readFileIntoVec();
 
 };
 

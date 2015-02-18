@@ -10,8 +10,11 @@ using namespace std;
 
 Texter::Texter(string textFile){
 	_textFileInUse = textFile;
-	_totalNumOfLines = 0;
+	_totalNumOfLines = numOfLinesInFile(); //deduce the number of lines in the file used
 
+}
+
+int Texter::numOfLinesInFile(){
 	string textFileLine;
 	vector<string> textFileVec;
 	ifstream readTextFile(_textFileInUse);
@@ -61,7 +64,6 @@ bool Texter::is_number(const string& s){
 void Texter::commandTexter(string userCommand, string information, string fileInUse){
 	
 	information.erase(information.begin());
-
 
 	if(userCommand == addCommand){
 		if (isInformationValid(information)){
@@ -261,17 +263,7 @@ void Texter::sortLinesAlphabetically(void){
 	cout << fileSorted;
 }
 
-vector<string> Texter::searchLines(string){
-
-	vector<string> textFileLines;
-
-	return textFileLines;
-}
-
-void Texter::displaySearchLineResults(vector<string>){
-
-}
-
+//removes all special characters from the string and returns the compressed string
 string Texter::compressTextLine(string textLine){
 
 	for (unsigned int i = 0; i < textLine.size(); i++){
@@ -286,9 +278,10 @@ string Texter::compressTextLine(string textLine){
 		}
 	}
 
-	return textLine; //textLine after being compressed
+	return textLine; //returns textLine after being compressed
 }
 
+//puts the contents from the vector into the file specified
 void Texter::readIntoFile(vector<string>& textFileContents){
 	ofstream newTextFile;
 	newTextFile.open(_textFileInUse);
@@ -298,4 +291,32 @@ void Texter::readIntoFile(vector<string>& textFileContents){
 	}
 
 	newTextFile.close();
+}
+
+void Texter::searchLines(string searchWord){
+
+	vector<string> textLineVec;
+	vector<string> searchResultLines;
+
+	textLineVec = readFileIntoVec();
+}
+
+void Texter::displaySearchLineResults(vector<string> searchResults){
+
+}
+
+vector<string> Texter::readFileIntoVec(){
+	ifstream textFile(_textFileInUse);
+	string textFileLine;
+	vector<string> textVec;
+
+	if (textFile.is_open()){
+		while (getline(textFile, textFileLine)){
+			textVec.push_back(textFileLine);
+
+			textFileLine.clear();
+		}
+	}
+
+	return textVec;
 }

@@ -9,7 +9,7 @@ namespace TextBuddyTest
 
 	public:
 		TEST_METHOD(texterConstructorTest){
-			Texter testClass("emptyTextFile");
+			Texter testClass("emptyTextFile.txt");
 
 			int expectedNumOfLines = 0;
 			int constructorNum = testClass.getTotalNumberOfLines();
@@ -18,7 +18,7 @@ namespace TextBuddyTest
 		}
 
 		TEST_METHOD(texterCompressLineTest){
-			Texter testClass("emptyTextFile");
+			Texter testClass("emptyTextFile.txt");
 
 			const string expectedStringOutput = "teststring";
 			const string actualStringOutput = testClass.compressLineTest();
@@ -27,7 +27,17 @@ namespace TextBuddyTest
 		}
 
 		TEST_METHOD(texterSortTest){
+			Texter testClass("unSortedTest.txt");
 
+			vector<string> expectedStrVec;
+			expectedStrVec.push_back("abc");
+			expectedStrVec.push_back("abc def");
+			expectedStrVec.push_back("acb dfe");
+			expectedStrVec.push_back("San");
+			expectedStrVec.push_back("San Cristobal");
+			expectedStrVec.push_back("Santa Barbara");
+			expectedStrVec.push_back("Santa Cruz");
+			expectedStrVec.push_back("San Tomas");		
 		}
 
 	};
