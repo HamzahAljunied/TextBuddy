@@ -11,6 +11,21 @@ using namespace std;
 Texter::Texter(string textFile){
 	_textFileInUse = textFile;
 	_totalNumOfLines = 0;
+
+	string textFileLine;
+	vector<string> textFileVec;
+	ifstream readTextFile(_textFileInUse);
+
+	if (readTextFile.is_open()){
+		while (getline(readTextFile, textFileLine) && !readTextFile.eof()){
+			textFileVec.push_back(textFileLine);
+			_totalNumOfLines++;
+		}
+
+		readTextFile.close();
+	}
+
+	textFileVec.erase(textFileVec.begin(), textFileVec.end());
 }
 
 Texter::~Texter(){
@@ -192,6 +207,8 @@ void Texter::clearTextFile(){
 	textFile.open(_textFileInUse, ofstream::out | ofstream::trunc);
 	textFile.close();
 
+	_totalNumOfLines = 0;
+
 	cout << contentCleared << _textFileInUse << endl;
 }
 
@@ -207,11 +224,9 @@ void Texter::sortLinesAlphabetically(void){
 	vector<string>compressLinesVec; //used to store the compressed strings from originalTextFileVec
 	vector<string> sortedLinesVec;
 
-	int numLine = 1;
 
 	if (textFile.is_open()){
 		while (getline(textFile, textFileLine)){
-			textFileLine = numLine;
 			originalTextFileVec.push_back(textFileLine);
 
 			compressedLine = compressTextLine(textFileLine);

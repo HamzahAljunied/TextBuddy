@@ -9,7 +9,7 @@ namespace TextBuddyTest
 
 	public:
 		TEST_METHOD(texterConstructorTest){
-			Texter testClass;
+			Texter testClass("emptyTextFile");
 
 			int expectedNumOfLines = 0;
 			int constructorNum = testClass.getTotalNumberOfLines();
@@ -18,7 +18,7 @@ namespace TextBuddyTest
 		}
 
 		TEST_METHOD(texterCompressLineTest){
-			Texter testClass;
+			Texter testClass("emptyTextFile");
 
 			const string expectedStringOutput = "teststring";
 			const string actualStringOutput = testClass.compressLineTest();

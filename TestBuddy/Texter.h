@@ -22,7 +22,7 @@ public:
 	}
 
 	string compressLineTest(){
-		Texter testClass;
+		Texter testClass("emptyTextFile");
 
 		string actualOutput = testClass.compressTextLine("Test*STRING?!@");
 
