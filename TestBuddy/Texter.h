@@ -39,7 +39,7 @@ private:
 	const string contentCleared = "All content deleted from ";
 	const string fileEmpty = " is empty\n";
 	const string errorAddLine = "No information was passed when adding a line\n";
-	const string fileSorted = _textFileInUse + " is sorted alphabetically.\n";
+	const string fileSorted = "Text file is sorted alphabetically.\n";
 
 	const string addCommand = "add";
 	const string deleteCommand = "delete";
@@ -60,6 +60,8 @@ private:
 	bool is_number(const string&);
 	bool isWithinNumLineRange(int);
 	void displaySearchLineResults(vector<string>);
+	void readIntoFile(vector<string>&);
+
 };
 
 #endif // !TEXTER_H

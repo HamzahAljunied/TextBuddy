@@ -137,15 +137,8 @@ void Texter::addLine(string newLine){
 		cout<<errorOpeningFile;
 	}
 
-	ofstream newTextFile;
-	newTextFile.open(_textFileInUse);
-	for(vector<string>::iterator iter=tempV.begin(); iter!=tempV.end(); iter++){
-		newTextFile << *iter <<endl;
-	}
-
+	readIntoFile(tempV);
 	tempV.erase(tempV.begin(), tempV.end());
-
-	newTextFile.close();
 }
 
 void Texter::displayFileContents(){
@@ -197,19 +190,11 @@ void Texter::deleteLine(int deletingLineNumber){
 		cout<< errorOpeningFile;
 	}
 
-	
-	ofstream newTextFile;
-	newTextFile.open(_textFileInUse);
-
-	for (vector<string>::iterator iter = tempV.begin(); iter != tempV.end(); iter++){
-		newTextFile << *iter << endl;
-	}
+	readIntoFile(tempV);
+	tempV.erase(tempV.begin(), tempV.end());
 	
 	cout << "deleted from my " << _textFileInUse << ": " << deletingLine << endl;
-	_totalNumOfLines--;
-
-	tempV.erase(tempV.begin(), tempV.end());	
-	newTextFile.close();
+	_totalNumOfLines--;	
 }
 
 //clear the text file of all contents
@@ -269,17 +254,11 @@ void Texter::sortLinesAlphabetically(void){
 		}
 	}
 	
-	ofstream newTextFile;
-	newTextFile.open(_textFileInUse);
-
-	for (vector<string>::iterator iter = sortedLinesVec.begin(); iter != sortedLinesVec.end(); iter++){
-		newTextFile << *iter << endl;
-	}
+	//input contents from the sortedVec into the designated text file
+	readIntoFile(sortedLinesVec);
+	sortedLinesVec.erase(sortedLinesVec.begin(), sortedLinesVec.end());
 
 	cout << fileSorted;
-
-	newTextFile.close();
-	sortedLinesVec.erase(sortedLinesVec.begin(), sortedLinesVec.end());
 }
 
 vector<string> Texter::searchLines(string){
@@ -308,4 +287,15 @@ string Texter::compressTextLine(string textLine){
 	}
 
 	return textLine; //textLine after being compressed
+}
+
+void Texter::readIntoFile(vector<string>& textFileContents){
+	ofstream newTextFile;
+	newTextFile.open(_textFileInUse);
+
+	for (vector<string>::iterator iter = textFileContents.begin(); iter != textFileContents.end(); iter++){
+		newTextFile << *iter << endl;
+	}
+
+	newTextFile.close();
 }

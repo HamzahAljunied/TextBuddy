@@ -26,5 +26,9 @@ namespace TextBuddyTest
 			Assert::AreEqual(expectedStringOutput, actualStringOutput);
 		}
 
+		TEST_METHOD(texterSortTest){
+
+		}
+
 	};
 }
