@@ -11,17 +11,12 @@ using namespace std;
 class Texter
 {
 public:
-	Texter();
+	Texter(string);
 	~Texter();
-
-	struct SEARCH_STRUCT{
-		string textLine;
-		int lineNum;
-	};
 
 	void commandTexter(string, string, string);
 
-
+#ifdef TESTMODE
 	int getTotalNumberOfLines(void){
 		return _totalNumOfLines;
 	}
@@ -33,7 +28,7 @@ public:
 
 		return actualOutput;
 	}
-
+#endif
 	
 private:
 	int _totalNumOfLines;

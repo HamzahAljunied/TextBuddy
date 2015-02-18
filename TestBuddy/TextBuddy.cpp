@@ -26,10 +26,10 @@ int main(int argc, char* argv[]){
 }
 
 void writeOnFile(char* argv[]){
-	Texter ax;
 	string userCommand = "empty";
 	string info= "empty";
 	string textFileInUse = argv[1];
+	Texter startTexter(textFileInUse);
 	
 	cout<<"Welcome to TextBuddy. "<<textFileInUse<<" is ready for use\n";
 
@@ -44,7 +44,7 @@ void writeOnFile(char* argv[]){
 			}
 
 			if ((userCommand != "exit")){
-				ax.commandTexter(userCommand, info, textFileInUse);
+				startTexter.commandTexter(userCommand, info, textFileInUse);
 			}
 			else{
 				break;

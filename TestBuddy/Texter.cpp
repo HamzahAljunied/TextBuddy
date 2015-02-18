@@ -8,7 +8,8 @@
 
 using namespace std;
 
-Texter::Texter(){
+Texter::Texter(string textFile){
+	_textFileInUse = textFile;
 	_totalNumOfLines = 0;
 }
 
@@ -198,23 +199,49 @@ void Texter::clearTextFile(){
 void Texter::sortLinesAlphabetically(void){
 	ifstream textFile(_textFileInUse);
 
-	SEARCH_STRUCT textFileLine;
-	SEARCH_STRUCT compressedLine;
+	string textFileLine;
+	string compressedLine;
 
-	vector<SEARCH_STRUCT> originalTextFileVec; //used to store the lines in the text file and would not be editted
-	vector<SEARCH_STRUCT> edittedTextFileVec; //used to store the lines after compressing it from all special characters and bringing it all tolower case
+	vector<string> originalTextFileVec; //used to store the lines in the text file and would not be editted
+	vector<string> edittedTextFileVec; //used to store the lines after compressing it from all special characters and bringing it all tolower case
+	vector<string>compressLinesVec; //used to store the compressed strings from originalTextFileVec
+	vector<string> sortedLinesVec;
 
 	int numLine = 1;
 
 	if (textFile.is_open()){
-		while (getline(textFile, textFileLine.textLine)){
-			textFileLine.lineNum = numLine;
+		while (getline(textFile, textFileLine)){
+			textFileLine = numLine;
 			originalTextFileVec.push_back(textFileLine);
 
-			compressedLine.textLine = compressTextLine(textFileLine.textLine);
-			compressedLine.lineNum = numLine;
+			compressedLine = compressTextLine(textFileLine);
 			edittedTextFileVec.push_back(compressedLine);
 		}
+	}
+
+
+	//sort the compressed lines in alphabetical order
+	stable_sort(compressLinesVec.begin(), compressLinesVec.end());
+
+	for (int i = 0; i < compressLinesVec.size(); i++){
+		for (int j = 0; j < edittedTextFileVec.size(); j++){
+			if (compressLinesVec[i] == edittedTextFileVec[j]){
+				sortedLinesVec.push_back(originalTextFileVec[j]);
+
+				edittedTextFileVec.erase(edittedTextFileVec.begin() + j);
+				originalTextFileVec.erase(originalTextFileVec.begin() + j);
+
+				i++; //to move the compressLinesVec counter forward since it is already deleted
+				j = -1;
+			}
+		}
+	}
+
+	ofstream newTextFile;
+	newTextFile.open(_textFileInUse);
+
+	for (vector<string>::iterator iter = sortedLinesVec.begin(); iter != sortedLinesVec.end(); iter++){
+		newTextFile << *iter << endl;
 	}
 }
 
