@@ -17,7 +17,7 @@ Texter::Texter(string textFile){
 	ifstream readTextFile(_textFileInUse);
 
 	if (readTextFile.is_open()){
-		while (getline(readTextFile, textFileLine) && !readTextFile.eof()){
+		while (getline(readTextFile, textFileLine)){
 			textFileVec.push_back(textFileLine);
 			_totalNumOfLines++;
 		}
@@ -42,11 +42,20 @@ bool Texter::isInformationValid(string information){
 	return isValid;
 }
 
-bool Texter::is_number(const string& s)
-{
+bool Texter::is_number(const string& s){
+
+	bool isNum = false;
+
 	string::const_iterator it = s.begin();
-	while (it != s.end() && isdigit(*it)) ++it;
-	return !s.empty() && it == s.end();
+	while (it != s.end() && isdigit(*it)){
+		++it;
+	}
+
+	if (!s.empty() && it == s.end()){
+		isNum = true;
+	}
+
+	return isNum;
 }
 
 void Texter::commandTexter(string userCommand, string information, string fileInUse){
@@ -136,7 +145,7 @@ void Texter::addLine(string newLine){
 
 	tempV.erase(tempV.begin(), tempV.end());
 
-	textFile.close();
+	newTextFile.close();
 }
 
 void Texter::displayFileContents(){
@@ -181,6 +190,8 @@ void Texter::deleteLine(int deletingLineNumber){
 
 			i++;
 		}
+
+		textFile.close();
 	}
 	else{
 		cout<< errorOpeningFile;
@@ -198,7 +209,7 @@ void Texter::deleteLine(int deletingLineNumber){
 	_totalNumOfLines--;
 
 	tempV.erase(tempV.begin(), tempV.end());	
-
+	newTextFile.close();
 }
 
 //clear the text file of all contents
@@ -220,8 +231,8 @@ void Texter::sortLinesAlphabetically(void){
 	string compressedLine;
 
 	vector<string> originalTextFileVec; //used to store the lines in the text file and would not be editted
-	vector<string> edittedTextFileVec; //used to store the lines after compressing it from all special characters and bringing it all tolower case
-	vector<string>compressLinesVec; //used to store the compressed strings from originalTextFileVec
+	vector<string> compressedTextFileVec; //used to store the lines after compressing it from all special characters and bringing it all tolower case
+	vector<string>compressedSortedLinesVec; //used to store the compressed strings from originalTextFileVec and sort it
 	vector<string> sortedLinesVec;
 
 
@@ -230,20 +241,26 @@ void Texter::sortLinesAlphabetically(void){
 			originalTextFileVec.push_back(textFileLine);
 
 			compressedLine = compressTextLine(textFileLine);
-			edittedTextFileVec.push_back(compressedLine);
+			compressedTextFileVec.push_back(compressedLine);
+
+			textFileLine.clear();
+			compressedLine.clear();
 		}
+
+		textFile.close();
 	}
 
 
 	//sort the compressed lines in alphabetical order
-	stable_sort(compressLinesVec.begin(), compressLinesVec.end());
+	compressedSortedLinesVec = compressedTextFileVec;
+	stable_sort(compressedSortedLinesVec.begin(), compressedSortedLinesVec.end());
 
-	for (int i = 0; i < compressLinesVec.size(); i++){
-		for (int j = 0; j < edittedTextFileVec.size(); j++){
-			if (compressLinesVec[i] == edittedTextFileVec[j]){
+	for (unsigned int i = 0; i < compressedSortedLinesVec.size(); i++){
+		for (unsigned int j = 0; j < compressedTextFileVec.size(); j++){
+			if (compressedSortedLinesVec[i] == compressedTextFileVec[j]){
 				sortedLinesVec.push_back(originalTextFileVec[j]);
 
-				edittedTextFileVec.erase(edittedTextFileVec.begin() + j);
+				compressedTextFileVec.erase(compressedTextFileVec.begin() + j);
 				originalTextFileVec.erase(originalTextFileVec.begin() + j);
 
 				i++; //to move the compressLinesVec counter forward since it is already deleted
@@ -251,13 +268,18 @@ void Texter::sortLinesAlphabetically(void){
 			}
 		}
 	}
-
+	
 	ofstream newTextFile;
 	newTextFile.open(_textFileInUse);
 
 	for (vector<string>::iterator iter = sortedLinesVec.begin(); iter != sortedLinesVec.end(); iter++){
 		newTextFile << *iter << endl;
 	}
+
+	cout << fileSorted;
+
+	newTextFile.close();
+	sortedLinesVec.erase(sortedLinesVec.begin(), sortedLinesVec.end());
 }
 
 vector<string> Texter::searchLines(string){
@@ -273,7 +295,7 @@ void Texter::displaySearchLineResults(vector<string>){
 
 string Texter::compressTextLine(string textLine){
 
-	for (int i = 0; i < textLine.size(); i++){
+	for (unsigned int i = 0; i < textLine.size(); i++){
 		if (!isalpha(textLine[i])){
 			textLine.erase(i, 1);
 			i--;

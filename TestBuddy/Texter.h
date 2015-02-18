@@ -37,8 +37,9 @@ private:
 	const string errorDeleteLine = "Error: Line number is beyond the text document's parameter\n";
 	const string errorOpeningFile = "Error opening file\n";
 	const string contentCleared = "All content deleted from ";
-	const string fileEmpty = "is empty\n";
+	const string fileEmpty = " is empty\n";
 	const string errorAddLine = "No information was passed when adding a line\n";
+	const string fileSorted = _textFileInUse + " is sorted alphabetically.\n";
 
 	const string addCommand = "add";
 	const string deleteCommand = "delete";
