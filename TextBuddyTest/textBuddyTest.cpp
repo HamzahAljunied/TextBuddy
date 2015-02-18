@@ -37,7 +37,20 @@ namespace TextBuddyTest
 			expectedStrVec.push_back("San Cristobal");
 			expectedStrVec.push_back("Santa Barbara");
 			expectedStrVec.push_back("Santa Cruz");
-			expectedStrVec.push_back("San Tomas");		
+			expectedStrVec.push_back("San Tomas");
+
+			vector<string> actualVec = testClass.getFileVec("unSortedTest.txt");
+
+			for (int i = 0; i < actualVec.size(); i++){
+				if (actualVec[i] != expectedStrVec[i]){
+					Assert::IsFalse;
+				}
+			}
+			
+		}
+
+		TEST_METHOD(texterSearchTest){
+
 		}
 
 	};

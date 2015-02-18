@@ -28,6 +28,17 @@ public:
 
 		return actualOutput;
 	}
+
+	vector<string> getFileVec(string textFile){
+		Texter testClass(textFile);
+		vector<string> testSortedVec;
+
+		testClass.sortLinesAlphabetically();
+		testSortedVec = testClass.readFileIntoVec();
+
+		return testSortedVec;
+	}
+
 #endif
 	
 private:
