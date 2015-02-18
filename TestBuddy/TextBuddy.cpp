@@ -9,6 +9,8 @@
 using namespace std;
 
 void writeOnFile(char*[]);
+bool isActionCommand(string userCommand);
+
 const int REQ_NUM_OF_FILES = 2;
 const string INVALID_COMMAND_INPUT = "Error: Incorrect command\n";
 const string EXIT_PROGRAM = "TextBuddy exited\n";
@@ -39,7 +41,7 @@ void writeOnFile(char* argv[]){
 
 		if (userCommand != "empty"){
 
-			if ((userCommand == "add") || (userCommand == "delete")){
+			if (isActionCommand(userCommand)){
 				getline(cin, info);
 			}
 
@@ -61,4 +63,14 @@ void writeOnFile(char* argv[]){
 	cout << EXIT_PROGRAM;
 
 	return;
+}
+
+bool isActionCommand(string userCommand){
+	bool isAction = false;
+
+	if ((userCommand == "add") || (userCommand == "delete") || (userCommand == "search")){
+		isAction = true;
+	}
+
+	return isAction;
 }

@@ -40,6 +40,8 @@ private:
 	const string fileEmpty = " is empty\n";
 	const string errorAddLine = "No information was passed when adding a line\n";
 	const string fileSorted = "Text file is sorted alphabetically.\n";
+	const string emptySearchResults = "No search results found.\n";
+	const string searchResultsMessage = "Search results:\n";
 
 	const string addCommand = "add";
 	const string deleteCommand = "delete";

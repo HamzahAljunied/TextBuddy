@@ -18,23 +18,27 @@ int Texter::numOfLinesInFile(){
 	string textFileLine;
 	vector<string> textFileVec;
 	ifstream readTextFile(_textFileInUse);
+	int numOfLines = 0;
 
 	if (readTextFile.is_open()){
 		while (getline(readTextFile, textFileLine)){
 			textFileVec.push_back(textFileLine);
-			_totalNumOfLines++;
+			numOfLines++;
 		}
 
 		readTextFile.close();
 	}
 
 	textFileVec.erase(textFileVec.begin(), textFileVec.end());
+
+	return numOfLines;
 }
 
 Texter::~Texter(){
 	cout<<"Texter deleted\n";
 }
 
+//check if there is any information when the userCommand is passed
 bool Texter::isInformationValid(string information){
 	bool isValid = false;
 
@@ -296,13 +300,36 @@ void Texter::readIntoFile(vector<string>& textFileContents){
 void Texter::searchLines(string searchWord){
 
 	vector<string> textLineVec;
-	vector<string> searchResultLines;
+	vector<string> searchResultVec;
+	size_t found;
 
 	textLineVec = readFileIntoVec();
+
+	//searches for any instance of the search word within the file and stores it into searchResultVec
+	for (unsigned int i = 0; i < textLineVec.size(); i++){
+		found = textLineVec[i].find(searchWord);
+		if (found != string::npos){
+			searchResultVec.push_back(textLineVec[i]);
+		}
+	}
+
+	displaySearchLineResults(searchResultVec);
+
+	searchResultVec.erase(searchResultVec.begin(), searchResultVec.end());
 }
 
 void Texter::displaySearchLineResults(vector<string> searchResults){
 
+	if (searchResults.size() != 0){
+		cout<<searchResultsMessage;
+		
+		for (unsigned int i = 0; i < searchResults.size(); i++){
+			cout << searchResults[i] << endl;
+		}
+	}
+	else{
+		cout << emptySearchResults;
+	}
 }
 
 vector<string> Texter::readFileIntoVec(){
