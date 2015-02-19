@@ -74,7 +74,7 @@ void Texter::commandTexter(string userCommand, string information, string fileIn
 			addLine(information);
 		}
 		else{
-			cout << errorAddLine;
+			cout << ERROR_ADD_LINE_MSG;
 		}
 	}
 
@@ -95,11 +95,11 @@ void Texter::commandTexter(string userCommand, string information, string fileIn
 				deleteLine(lineNumber);
 			}
 			else{
-				cout << errorDeleteLine;
+				cout << ERROR_DELETE_LINE_MSG;
 			}
 		}
 		else{
-			cout << errorDeleteLine;
+			cout << ERROR_DELETE_LINE_MSG;
 		}
 	}
 
@@ -140,7 +140,7 @@ void Texter::addLine(string newLine){
 		_totalNumOfLines++;
 	}
 	else{
-		cout<<errorOpeningFile;
+		cout<<ERROR_OPENING_FILE_MSG;
 	}
 
 	readIntoFile(tempV);
@@ -150,7 +150,7 @@ void Texter::addLine(string newLine){
 void Texter::displayFileContents(){
 
 	if (_totalNumOfLines == 0){
-		cout << _textFileInUse << fileEmpty;
+		cout << _textFileInUse << FILE_EMPTY_MSG;
 	}
 	else{
 		string line;
@@ -166,7 +166,7 @@ void Texter::displayFileContents(){
 			textFile.close();
 		}
 		else{
-			cout << errorOpeningFile;
+			cout << ERROR_OPENING_FILE_MSG;
 		}
 	}
 }
@@ -193,7 +193,7 @@ void Texter::deleteLine(int deletingLineNumber){
 		textFile.close();
 	}
 	else{
-		cout<< errorOpeningFile;
+		cout<< ERROR_OPENING_FILE_MSG;
 	}
 
 	readIntoFile(tempV);
@@ -211,7 +211,7 @@ void Texter::clearTextFile(){
 
 	_totalNumOfLines = 0;
 
-	cout << contentCleared << _textFileInUse << endl;
+	cout << CONTENT_CLEARED_MSG << _textFileInUse << endl;
 }
 
 //lines are sorted whereby special characters are ignored and is sorted purely alphabetically
@@ -262,9 +262,10 @@ void Texter::sortLinesAlphabetically(void){
 	
 	//input contents from the sortedVec into the designated text file
 	readIntoFile(sortedLinesVec);
+
 	sortedLinesVec.erase(sortedLinesVec.begin(), sortedLinesVec.end());
 
-	cout << fileSorted;
+	cout << FILE_SORTED_MSG;
 }
 
 //removes all special characters from the string and returns the compressed string
@@ -321,14 +322,14 @@ void Texter::searchLines(string searchWord){
 void Texter::displaySearchLineResults(vector<string> searchResults){
 
 	if (searchResults.size() != 0){
-		cout<<searchResultsMessage;
+		cout<<SEARCH_RESULTS_MSG;
 		
 		for (unsigned int i = 0; i < searchResults.size(); i++){
 			cout << searchResults[i] << endl;
 		}
 	}
 	else{
-		cout << emptySearchResults;
+		cout << EMPTY_SEARCH_RESULTS_MSG;
 	}
 }
 
@@ -343,6 +344,9 @@ vector<string> Texter::readFileIntoVec(){
 
 			textFileLine.clear();
 		}
+	}
+	else{
+		cout << ERROR_OPENING_FILE_MSG;
 	}
 
 	return textVec;
