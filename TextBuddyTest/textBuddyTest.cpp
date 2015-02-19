@@ -27,7 +27,7 @@ namespace TextBuddyTest
 		}
 
 		TEST_METHOD(texterSortTest){
-			Texter testClass("unSortedTest.txt");
+			Texter testClass("SortingTest.txt");
 
 			vector<string> expectedStrVec;
 			expectedStrVec.push_back("abc");
@@ -39,7 +39,7 @@ namespace TextBuddyTest
 			expectedStrVec.push_back("Santa Cruz");
 			expectedStrVec.push_back("San Tomas");
 
-			vector<string> actualVec = testClass.getFileVec("unSortedTest.txt");
+			vector<string> actualVec = testClass.getFileVec("SortingTest.txt");
 
 			for (int i = 0; i < actualVec.size(); i++){
 				if (actualVec[i] != expectedStrVec[i]){

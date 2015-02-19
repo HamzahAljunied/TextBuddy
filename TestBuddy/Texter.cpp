@@ -210,36 +210,24 @@ void Texter::sortLinesAlphabetically(void){
 	vector<string>compressedSortedLinesVec; //used to store the compressed strings from originalTextFileVec and sort it
 	vector<string> sortedLinesVec;
 
-
-	if (textFile.is_open()){
-		while (getline(textFile, textFileLine)){
-			originalTextFileVec.push_back(textFileLine);
-
-			compressedLine = compressTextLine(textFileLine);
-			compressedTextFileVec.push_back(compressedLine);
-
-			textFileLine.clear();
-			compressedLine.clear();
-		}
-
-		textFile.close();
-	}
-
+	originalTextFileVec = readFileIntoVec();
+	compressedTextFileVec = readCompressedFileIntoVec();
 
 	//sort the compressed lines in alphabetical order
 	compressedSortedLinesVec = compressedTextFileVec;
 	stable_sort(compressedSortedLinesVec.begin(), compressedSortedLinesVec.end());
 
-	for (unsigned int i = 0; i < compressedSortedLinesVec.size(); i++){
-		for (unsigned int j = 0; j < compressedTextFileVec.size(); j++){
+	for (int i = 0; i < compressedSortedLinesVec.size(); i++){
+		for (int j = 0; j < compressedTextFileVec.size(); j++){
 			if (compressedSortedLinesVec[i] == compressedTextFileVec[j]){
 				sortedLinesVec.push_back(originalTextFileVec[j]);
 
-				compressedTextFileVec.erase(compressedTextFileVec.begin() + j);
+				//removes the string that has already been pushed into the desired sorting vector
+				compressedTextFileVec.erase(compressedTextFileVec.begin() + j); 
 				originalTextFileVec.erase(originalTextFileVec.begin() + j);
 
-				i++; //to move the compressLinesVec counter forward since it is already deleted
-				j = -1;
+				i++; //to move the compressSortedLinesVec counter forward since it is already deleted
+				j = -1; //moves j to its starting position
 			}
 		}
 	}
@@ -248,6 +236,9 @@ void Texter::sortLinesAlphabetically(void){
 	readIntoFile(sortedLinesVec);
 
 	sortedLinesVec.erase(sortedLinesVec.begin(), sortedLinesVec.end());
+	originalTextFileVec.erase(originalTextFileVec.begin(), originalTextFileVec.end());
+	compressedTextFileVec.erase(compressedTextFileVec.begin(), compressedTextFileVec.end());
+	compressedSortedLinesVec.erase(compressedSortedLinesVec.begin(), compressedSortedLinesVec.end());
 
 	cout << FILE_SORTED_MSG;
 }
@@ -334,4 +325,24 @@ vector<string> Texter::readFileIntoVec(){
 	}
 
 	return textVec;
+}
+
+vector<string> Texter::readCompressedFileIntoVec(){
+	ifstream textFile(_textFileInUse);
+	string compressedLine;
+	vector<string> compressedTextVec;
+
+	if (textFile.is_open()){
+		while (getline(textFile, compressedLine)){
+			compressedLine = compressTextLine(compressedLine);
+			compressedTextVec.push_back(compressedLine);
+
+			compressedLine.clear();
+		}
+	}
+	else{
+		cout << ERROR_OPENING_FILE_MSG;
+	}
+
+	return compressedTextVec;
 }

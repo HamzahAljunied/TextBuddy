@@ -16,7 +16,7 @@ public:
 
 	void commandTexter(string, string, string);
 
-#ifdef TESTMODE
+
 	int getTotalNumberOfLines(void){
 		return _totalNumOfLines;
 	}
@@ -30,16 +30,17 @@ public:
 	}
 
 	vector<string> getFileVec(string textFile){
-		Texter testClass(textFile);
-		vector<string> testSortedVec;
+		Texter testClassUnsorted("unsortedVec.txt");
+		Texter testClassSorted("SortingTest.txt");
+		vector<string> testUnsortedVec = testClassUnsorted.readFileIntoVec();
+		testClassSorted.readIntoFile(testUnsortedVec);
 
-		testClass.sortLinesAlphabetically();
-		testSortedVec = testClass.readFileIntoVec();
+		testClassSorted.sortLinesAlphabetically();
+		testUnsortedVec = testClassSorted.readFileIntoVec();
 
-		return testSortedVec;
+		return testUnsortedVec;
 	}
 
-#endif
 	
 private:
 	int _totalNumOfLines;
@@ -76,6 +77,7 @@ private:
 	void readIntoFile(vector<string>&);
 	int numOfLinesInFile();
 	vector<string> readFileIntoVec();
+	vector<string> readCompressedFileIntoVec();
 
 };
 
