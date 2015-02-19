@@ -31,9 +31,9 @@ public:
 
 	vector<string> getFileVec(string textFile){
 		Texter testClassUnsorted("unsortedVec.txt");
-		Texter testClassSorted("SortingTest.txt");
+		Texter testClassSorted(textFile);
 		vector<string> testUnsortedVec = testClassUnsorted.readFileIntoVec();
-		testClassSorted.readIntoFile(testUnsortedVec);
+		testClassSorted.readIntoFile(testUnsortedVec); //to ensure the SortingTest file is unsorted
 
 		testClassSorted.sortLinesAlphabetically();
 		testUnsortedVec = testClassSorted.readFileIntoVec();
@@ -41,6 +41,12 @@ public:
 		return testUnsortedVec;
 	}
 
+	vector<string> getSearchLineVec(string textFile, string searchWord){
+		Texter testClass(textFile);
+		vector<string> searchVec = testClass.searchLines(searchWord);
+		
+		return searchVec;
+	}
 	
 private:
 	int _totalNumOfLines;
@@ -67,17 +73,18 @@ private:
 	void deleteLine(int);
 	void clearTextFile();
 	void sortLinesAlphabetically();
-	void searchLines(string);
+	void displaySearchLineResults(string);
+	
 
 	bool isInformationValid(string);
 	string compressTextLine(string);
 	bool isNumber(const string&);
 	bool isWithinNumLineRange(int);
-	void displaySearchLineResults(vector<string>);
 	void readIntoFile(vector<string>&);
 	int numOfLinesInFile();
 	vector<string> readFileIntoVec();
 	vector<string> readCompressedFileIntoVec();
+	vector<string> searchLines(string);
 
 };
 

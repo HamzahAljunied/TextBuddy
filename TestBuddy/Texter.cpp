@@ -108,7 +108,7 @@ void Texter::commandTexter(string userCommand, string information, string fileIn
 	}
 
 	if (userCommand == searchCommand){
-		searchLines(information);
+		displaySearchLineResults(information);
 	}
 }
 
@@ -273,7 +273,7 @@ void Texter::readIntoFile(vector<string>& textFileContents){
 	newTextFile.close();
 }
 
-void Texter::searchLines(string searchWord){
+vector<string> Texter::searchLines(string searchWord){
 
 	vector<string> textLineVec;
 	vector<string> searchResultVec;
@@ -289,12 +289,12 @@ void Texter::searchLines(string searchWord){
 		}
 	}
 
-	displaySearchLineResults(searchResultVec);
-
-	searchResultVec.erase(searchResultVec.begin(), searchResultVec.end());
+	return searchResultVec;
 }
 
-void Texter::displaySearchLineResults(vector<string> searchResults){
+void Texter::displaySearchLineResults(string searchWord){
+	
+	vector<string> searchResults = searchLines(searchWord);
 
 	if (searchResults.size() != 0){
 		cout<<SEARCH_RESULTS_MSG;
@@ -302,10 +302,13 @@ void Texter::displaySearchLineResults(vector<string> searchResults){
 		for (unsigned int i = 0; i < searchResults.size(); i++){
 			cout << searchResults[i] << endl;
 		}
+
+		searchResults.erase(searchResults.begin(), searchResults.end());
 	}
 	else{
 		cout << EMPTY_SEARCH_RESULTS_MSG;
 	}
+
 }
 
 vector<string> Texter::readFileIntoVec(){

@@ -50,7 +50,20 @@ namespace TextBuddyTest
 		}
 
 		TEST_METHOD(texterSearchTest){
+			Texter testClass("searchTest.txt");
 
+			vector<string> expectedStrVec;
+			expectedStrVec.push_back("abc def ghi");
+			expectedStrVec.push_back("def ghi");
+			expectedStrVec.push_back("abc ghi def");
+
+			vector<string> actualVec = testClass.getSearchLineVec("searchTest.txt", "def");
+
+			for (int i = 0; i < actualVec.size(); i++){
+				if (actualVec[i] != expectedStrVec[i]){
+					Assert::IsFalse;
+				}
+			}
 		}
 
 	};
