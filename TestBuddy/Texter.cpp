@@ -49,7 +49,7 @@ bool Texter::isInformationValid(string information){
 	return isValid;
 }
 
-bool Texter::is_number(const string& s){
+bool Texter::isNumber(const string& s){
 
 	bool isNum = false;
 
@@ -87,7 +87,7 @@ void Texter::commandTexter(string userCommand, string information, string fileIn
 	}
 
 	if (userCommand == deleteCommand){
-		if (is_number(information)){
+		if (isNumber(information)){
 			int lineNumber;
 			istringstream(information) >> lineNumber;
 
@@ -146,18 +146,13 @@ void Texter::displayFileContents(){
 	else{
 		string line;
 		ifstream textFile(_textFileInUse);
+		vector<string> displayVec;
 		int i = 1;
 
-		if (textFile.is_open()){
-			while (getline(textFile, line)){
-				cout << i << ": " << line << endl;
-				i++;
-			}
-
-			textFile.close();
-		}
-		else{
-			cout << ERROR_OPENING_FILE_MSG;
+		displayVec = readFileIntoVec();
+		
+		for (int i = 0; i < _totalNumOfLines; i++){
+			cout << i+1 << ": " << displayVec[i] << endl;
 		}
 	}
 }

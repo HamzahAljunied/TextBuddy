@@ -70,7 +70,7 @@ private:
 
 	bool isInformationValid(string);
 	string compressTextLine(string);
-	bool is_number(const string&);
+	bool isNumber(const string&);
 	bool isWithinNumLineRange(int);
 	void displaySearchLineResults(vector<string>);
 	void readIntoFile(vector<string>&);
