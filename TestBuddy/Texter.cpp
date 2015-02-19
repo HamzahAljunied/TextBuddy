@@ -127,21 +127,12 @@ void Texter::addLine(string newLine){
 	string textFileLine;
 	ifstream textFile (_textFileInUse);
 
-	if(textFile.is_open()){
-		while(getline(textFile, textFileLine)){
-			tempV.push_back(textFileLine);
-		}
+	tempV = readFileIntoVec();
 
-		tempV.push_back(newLine);
-		cout<<newLine<<" was added to "<<_textFileInUse<<endl;
-		textFile.trunc;
-		textFile.close();
-
-		_totalNumOfLines++;
-	}
-	else{
-		cout<<ERROR_OPENING_FILE_MSG;
-	}
+	tempV.push_back(newLine);
+	cout << newLine << " was added to " << _textFileInUse << endl;
+	textFile.trunc;
+	textFile.close();
 
 	readIntoFile(tempV);
 	tempV.erase(tempV.begin(), tempV.end());
