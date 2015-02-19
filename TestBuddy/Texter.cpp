@@ -144,10 +144,8 @@ void Texter::displayFileContents(){
 		cout << _textFileInUse << FILE_EMPTY_MSG;
 	}
 	else{
-		string line;
 		ifstream textFile(_textFileInUse);
 		vector<string> displayVec;
-		int i = 1;
 
 		displayVec = readFileIntoVec();
 		
@@ -160,20 +158,20 @@ void Texter::displayFileContents(){
 void Texter::deleteLine(int deletingLineNumber){
 	string textFileLine;
 	string deletingLine;
-	int i = 1;
+	int currentLineNum = 1;
 	vector<string> tempV;
 	ifstream textFile (_textFileInUse);
 
 	if(textFile.is_open()){
 		while (getline(textFile, textFileLine)){
-			if (i != deletingLineNumber){
+			if (currentLineNum != deletingLineNumber){
 				tempV.push_back(textFileLine);
 			}
 			else{
 				deletingLine = textFileLine;
 			}
 
-			i++;
+			currentLineNum++;
 		}
 
 		textFile.close();
