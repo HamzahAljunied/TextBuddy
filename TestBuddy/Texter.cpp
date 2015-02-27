@@ -212,46 +212,7 @@ void Texter::clearTextFile(){
 
 //lines are sorted whereby special characters are ignored and is sorted purely alphabetically
 void Texter::sortLinesAlphabetically(void){
-	ifstream textFile(_textFileInUse);
-	string textFileLine;
-	string compressedLine;
 
-	vector<string> originalTextFileVec; //used to store the lines in the text file and would not be editted
-	vector<string> compressedTextFileVec; //used to store the lines after compressing it from all special characters and bringing it all tolower case
-	vector<string>compressedSortedLinesVec; //used to store the compressed strings from originalTextFileVec and sort it
-	vector<string> sortedLinesVec;
-
-	originalTextFileVec = readFileIntoVec();
-	compressedTextFileVec = readCompressedFileIntoVec();
-
-	//sort the compressed lines in alphabetical order
-	compressedSortedLinesVec = compressedTextFileVec;
-	stable_sort(compressedSortedLinesVec.begin(), compressedSortedLinesVec.end());
-
-	for (int i = 0; i < compressedSortedLinesVec.size(); i++){
-		for (int j = 0; j < compressedTextFileVec.size(); j++){
-			if (compressedSortedLinesVec[i] == compressedTextFileVec[j]){
-				sortedLinesVec.push_back(originalTextFileVec[j]);
-
-				//removes the string that has already been pushed into the desired sorting vector
-				compressedTextFileVec.erase(compressedTextFileVec.begin() + j); 
-				originalTextFileVec.erase(originalTextFileVec.begin() + j);
-
-				i++; //to move the compressSortedLinesVec counter forward since it is already deleted
-				j = -1; //moves j to its starting position
-			}
-		}
-	}
-	
-	//input contents from the sortedVec into the designated text file
-	readIntoFile(sortedLinesVec);
-
-	sortedLinesVec.erase(sortedLinesVec.begin(), sortedLinesVec.end());
-	originalTextFileVec.erase(originalTextFileVec.begin(), originalTextFileVec.end());
-	compressedTextFileVec.erase(compressedTextFileVec.begin(), compressedTextFileVec.end());
-	compressedSortedLinesVec.erase(compressedSortedLinesVec.begin(), compressedSortedLinesVec.end());
-
-	cout << FILE_SORTED_MSG;
 }
 
 //removes all special characters from the string and returns the compressed string
