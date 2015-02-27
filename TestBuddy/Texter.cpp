@@ -285,8 +285,23 @@ void Texter::readIntoFile(vector<string>& textFileContents){
 }
 
 vector<string> Texter::searchLines(string searchWord){
+	vector<string> textLineVec;
+	vector<string> searchResultVec;
+	size_t found;
 
+	textLineVec = readFileIntoVec();
 
+	//searches for any instance of the search word within the file and stores it into searchResultVec
+	for (unsigned int i = 0; i < textLineVec.size(); i++){
+		found = textLineVec[i].find(searchWord);
+		if (found != string::npos){
+			searchResultVec.push_back(textLineVec[i]);
+		}
+	}
+
+	textLineVec.erase(textLineVec.begin(), textLineVec.end());
+
+	return searchResultVec;
 }
 
 void Texter::displaySearchLineResults(string searchWord){
