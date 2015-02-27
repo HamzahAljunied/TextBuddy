@@ -130,12 +130,18 @@ void Texter::addLine(string newLine){
 	tempV = readFileIntoVec();
 
 	tempV.push_back(newLine);
-	cout << newLine << " was added to " << _textFileInUse << endl;
+	cout << ADD_LINE_MESSAGE(newLine);
+
 	textFile.trunc;
 	textFile.close();
 
 	readIntoFile(tempV);
 	tempV.erase(tempV.begin(), tempV.end());
+}
+
+const string Texter::ADD_LINE_MESSAGE(string newLine){
+
+	return newLine + " was added to " + _textFileInUse;
 }
 
 void Texter::displayFileContents(){
@@ -181,10 +187,16 @@ void Texter::deleteLine(int deletingLineNumber){
 	}
 
 	readIntoFile(tempV);
+
 	tempV.erase(tempV.begin(), tempV.end());
 	
-	cout << "deleted from my " << _textFileInUse << ": " << deletingLine << endl;
+	cout << DELETE_LINE_MESSAGE(deletingLine);
 	_totalNumOfLines--;	
+}
+
+const string Texter::DELETE_LINE_MESSAGE(string deletingLine){
+
+	return  "Deleted from my " + _textFileInUse + ": " + deletingLine + "\n";
 }
 
 //clear the text file of all contents
@@ -201,7 +213,6 @@ void Texter::clearTextFile(){
 //lines are sorted whereby special characters are ignored and is sorted purely alphabetically
 void Texter::sortLinesAlphabetically(void){
 	ifstream textFile(_textFileInUse);
-
 	string textFileLine;
 	string compressedLine;
 
@@ -275,21 +286,7 @@ void Texter::readIntoFile(vector<string>& textFileContents){
 
 vector<string> Texter::searchLines(string searchWord){
 
-	vector<string> textLineVec;
-	vector<string> searchResultVec;
-	size_t found;
 
-	textLineVec = readFileIntoVec();
-
-	//searches for any instance of the search word within the file and stores it into searchResultVec
-	for (unsigned int i = 0; i < textLineVec.size(); i++){
-		found = textLineVec[i].find(searchWord);
-		if (found != string::npos){
-			searchResultVec.push_back(textLineVec[i]);
-		}
-	}
-
-	return searchResultVec;
 }
 
 void Texter::displaySearchLineResults(string searchWord){

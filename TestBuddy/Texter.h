@@ -16,7 +16,7 @@ public:
 
 	void commandTexter(string, string, string);
 
-
+#ifdef TESTMODE
 	int getTotalNumberOfLines(void){
 		return _totalNumOfLines;
 	}
@@ -47,6 +47,7 @@ public:
 		
 		return searchVec;
 	}
+#endif 
 	
 private:
 	int _totalNumOfLines;
@@ -85,6 +86,8 @@ private:
 	vector<string> readFileIntoVec();
 	vector<string> readCompressedFileIntoVec();
 	vector<string> searchLines(string);
+	const string ADD_LINE_MESSAGE(string);
+	const string DELETE_LINE_MESSAGE(string);
 
 };
 
